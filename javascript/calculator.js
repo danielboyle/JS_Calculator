@@ -1,15 +1,23 @@
-$(document).ready(function() {
+function $(id_selector) {
+  return document.getElementById(id_selector);
+}
 
-  $("form").on("submit", function(e) {
+window.onload = function() {
+  $("calculator").onsubmit = function(e) {
     e.preventDefault();
-    var num1 = +$("#numerator").val(),
-        num2 = +$("#denominator").val(),
-        oper = $("#operator").val(),
+    var numerator = $("numerator"),
+        denominator = $("denominator"),
+        num1 = +numerator.value,
+        num2 = +denominator.value,
+        oper = $("operator").value,
         result;
 
     function resetForm() {
-      $("#numerator").attr("placeholder", num1).val("").focus();
-      $("#denominator").attr("placeholder", num2).val("");
+      numerator.setAttribute("placeholder", num1);
+      numerator.value = null;
+      numerator.focus()
+      denominator.setAttribute("placeholder", num2);
+      denominator.value = null;
     };
 
     switch(oper) {
@@ -26,8 +34,8 @@ $(document).ready(function() {
         result = num1 / num2;
         break;
     }
-    
-    $("h1").text(result);
+
+    $("result").innerHTML = result;
     resetForm();
-  });
-});
+  };
+};
